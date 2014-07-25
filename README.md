@@ -9,7 +9,7 @@
 * simple\_rank
 
     *  word frequence (TF)
-    *  word importance (IDF, Part-Of-Speech)
+    *  word importance (IDF, Part-Of-Speech, Entity category)
     *  word position factor (such as whether both in title and body)
     *  task related word weight adjusting.
 
