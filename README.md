@@ -9,14 +9,14 @@
 
 * glm\_rank (TODO)
 
-    *  features: word frequence (TF), word importance (IDF, Part-Of-Speech, Entity category), word position (such as whether both in title and body)
-    *  ranking: train and predict by linear/logistic regression
+    *  features: word frequence (TF), word importance (IDF, Part-Of-Speech, Entity type), word position (such as whether both in title and body)
+    *  ranking: train and predict by regression model.
 
 * semantic\_rank (TODO)
 
-    *  features: including features used by simple\_rank
-    *  ranking: glm\_rank plus SemanticRank, which like Pagerank, while building a relation matrix according to semantic similarity.
-    *  re-ranking: doc category based adjusting, task related word weight adjusting.
+    *  features: such as TF, IDF, POS, entity type ... 
+    *  ranking: regression model plus SemanticRank, which like Pagerank, while building a relation matrix according to semantic similarity.
+    *  re-ranking: document category based adjusting, task related word weight adjusting.
 
 * topic\_rank (TODO)
 
@@ -24,8 +24,8 @@
 
 ##Requirements:
 
-* jieba: chinese word segmenter.
+* jieba: chinese word segmenter, https://github.com/fxsjy/jieba
 
-* word2vec: for building word similarities.
+* word2vec: for building word similarities, https://code.google.com/p/word2vec/
 
 
