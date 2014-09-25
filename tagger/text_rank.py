@@ -5,7 +5,7 @@
 import os
 import sys
 import math
-sys.path.append('../')
+sys.path.append('../../jieba')
 import jieba
 import jieba.posseg as pseg
 
@@ -27,7 +27,7 @@ class TextRankTagger(object):
                 legal_list.append('')
         return legal_list
         
-    def get_und_unw_matrix(self, seg_list, window=4):
+    def get_neighbor_matrix(self, seg_list, window=4):
         # undirected and unweighted graph
         seg_matrix = {}
         for i, word in enumerate(seg_list):
@@ -47,7 +47,7 @@ class TextRankTagger(object):
                 #        seg_matrix[word].add(word2)
         return seg_matrix            
 
-    def do_pagerank(self, matrix, w_dict, d=0.15):
+    def do_rank(self, w_dict, matrix, d=0.15):
         w_dict2 = {v:d for v in w_dict}
         for v in w_dict:
             if not matrix[v]: continue
@@ -56,10 +56,6 @@ class TextRankTagger(object):
                 w_dict2[v2] += w_dict[v] * x * (1-d)
         for v in w_dict2:
             w_dict[v] = w_dict2[v]
-
-    def get_topK(self, w_dict, K=5):
-        sort_list = sorted(w_dict.items(), key=lambda d:d[1], reverse=True)
-        return sort_list[:K]
 
     def abs_diff(self, old_words, new_words):
         diff = 0
@@ -70,14 +66,18 @@ class TextRankTagger(object):
             else: return 10000
         return diff
 
+    def get_topK(self, w_dict, K=5):
+        sort_list = sorted(w_dict.items(), key=lambda d:d[1], reverse=True)
+        return sort_list[:K]
+
     def extract_keywords(self, text, n_count=5, window=4, d=0.15, max_iter=20):
         word_list = self.tokenize(text)
-        matrix = self.get_und_unw_matrix(word_list, window)
+        matrix = self.get_neighbor_matrix(word_list, window)
         w_dict = {v:1.0 for v in matrix}
         old_top_words = self.get_topK(w_dict, n_count)
 
         for iter in xrange(max_iter):
-            self.do_pagerank(matrix, w_dict, d)
+            self.do_rank(w_dict, matrix, d)
             top_words = self.get_topK(w_dict, n_count)
 
             diff = self.abs_diff(old_top_words, top_words)
@@ -87,15 +87,16 @@ class TextRankTagger(object):
 
 def test():
     tagger = TextRankTagger()
-    lines = [
+    docs = [
             '走到哪都是一个人的旅行，不过，我相信宁可没有不了迁就！我想走遍天涯海角，直到找到属于我的她，让我可以落叶归根！',
             '1949年10月1日，中华人民共和国成立了，全球1/4的人口得到解放，百分之八十的耕地都给予农民，十几亿农民得到了实惠，120%的力气发展生产。',
             '开发者可以指定自己自定义的词典，以便包含jieba词库里没有的词。虽然jieba有新词识别能力，但是自行添加新词可以保证更高的正确率',
             ]
-    for text in lines:
-        print text
+    for text in docs:
+        print 'text:', text
         result = tagger.extract_keywords(text)
-        for k, v in result: print k, v
+        for k, v in result: 
+            print '\tkeyword:', k, v
 
 if __name__ == '__main__':
     test()

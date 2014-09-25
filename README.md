@@ -3,20 +3,24 @@
 
 * text\_rank
 
-    *  like PageRank. Need to build a relation matrix according to the words' positions.
-    *  http://www.cse.unt.edu/~rada/papers/mihalcea.emnlp04.pdf
+    *  features: pos (for filtering), word neighbors 
+    *  ranking: TextRank, which like PageRank, while building a relation matrix according to the words' positions.
+    *  reference: http://www.cse.unt.edu/~rada/papers/mihalcea.emnlp04.pdf
 
-* simple\_rank
+* glm\_rank (TODO)
 
-    *  word frequence (TF)
-    *  word importance (IDF, Part-Of-Speech, Entity category)
-    *  word position factor (such as whether both in title and body)
-    *  task related word weight adjusting.
+    *  features: word frequence (TF), word importance (IDF, Part-Of-Speech, Entity category), word position (such as whether both in title and body)
+    *  ranking: train and predict by linear/logistic regression
 
-* semantic\_rank
+* semantic\_rank (TODO)
 
-    *  including features used by simple\_rank
-    *  build a relation matrix according to semantic similarity.
+    *  features: including features used by simple\_rank
+    *  ranking: glm\_rank plus SemanticRank, which like Pagerank, while building a relation matrix according to semantic similarity.
+    *  re-ranking: doc category based adjusting, task related word weight adjusting.
+
+* topic\_rank (TODO)
+
+    *  ranking: topic model, such as LDA.
 
 ##Requirements:
 
