@@ -16,7 +16,7 @@
 
     *  features: such as TF, IDF, POS, entity type ... 
     *  ranking: regression model plus SemanticRank, which like Pagerank, while building a relation matrix according to semantic similarity.
-    *  re-ranking: document category based adjusting, task related word weight adjusting.
+    *  re-ranking: document category based adjusting, task dependent word adjusting.
 
 * topic\_rank (TODO)
 
