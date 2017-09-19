@@ -1,31 +1,31 @@
 
-## Algorithms for keyword extraction.
+## Algorithms for keyword (tag) extraction.
 
-* tfidf\_rank
+* tf\_idf\_rank
 
-    *  features: TF, IDF (==1) 
+    *  features: TF, IDF, pos-tagging
+    *  filtering: by pos-tagging (such adj, conj...) 
     *  ranking: TF * IDF 
 
 * text\_rank
 
-    *  features: pos (for filtering), word neighbors 
+    *  features: word neighbors 
+    *  filtering: by pos-tagging (such adj, conj...) 
     *  ranking: TextRank, which like PageRank, while building a relation matrix according to the words' positions.
     *  reference: http://www.cse.unt.edu/~rada/papers/mihalcea.emnlp04.pdf
 
 * glm\_rank (TODO)
 
-    *  features: word frequence (TF), word importance (IDF, Part-Of-Speech, Entity type), word position (such as whether both in title and body)
-    *  ranking: train and predict by regression model.
+    *  features: TF, IDF, pos-tagging, entity type, word position
+    *  ranking: train and predict by classification model
 
 * semantic\_rank (TODO)
 
     *  features: such as TF, IDF, POS, entity type ... 
-    *  ranking: regression model plus SemanticRank, which like Pagerank, while building a relation matrix according to semantic similarity.
-    *  re-ranking: document category based adjusting, task dependent word adjusting.
+    *  first-ranking: classification model
+    regression model plus SemanticRank, which like Pagerank, while building a relation matrix according to semantic similarity.
+    *  re-ranking: adjust based on word co-occurence (Kobe and Oneal support each other)  or topic model (whether words are belongs the main topics)
 
-* topic\_rank (TODO)
-
-    *  ranking: topic model, such as LDA.
 
 ##Requirements:
 
