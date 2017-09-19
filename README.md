@@ -23,7 +23,6 @@
 
     *  features: such as TF, IDF, POS, entity type ... 
     *  first-ranking: classification model
-    regression model plus SemanticRank, which like Pagerank, while building a relation matrix according to semantic similarity.
     *  re-ranking: adjust based on word co-occurence (Kobe and Oneal support each other)  or topic model (whether words are belongs the main topics)
 
 
